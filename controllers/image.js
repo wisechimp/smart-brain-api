@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv"
+const dotenv = require("dotenv")
 const Clarifai = require("clarifai")
 
 dotenv.config()
