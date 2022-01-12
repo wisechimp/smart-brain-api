@@ -1,0 +1,12 @@
+version: '3.7'
+
+services: 
+  smart-brain-api: 
+    container_name: backend
+    build: ./
+    command: yarn start -L
+    working_dir: /usr/src/smart-brain-api
+    ports:
+      - "5000:5000"
+    volumes: 
+      - ./:/usr/src/smart-brain-api
