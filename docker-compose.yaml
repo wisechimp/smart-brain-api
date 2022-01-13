@@ -1,12 +1,28 @@
 version: '3.7'
 
 services: 
+  # Backend API
   smart-brain-api: 
     container_name: backend
     build: ./
     command: yarn start -L
     working_dir: /usr/src/smart-brain-api
+    environment:
+      POSTGRES_URI: postgres://shicks:dockerpass@postgres:5432/smart-brain-docker
+    links: 
+     - postgres
     ports:
       - "5000:5000"
     volumes: 
       - ./:/usr/src/smart-brain-api
+  
+  # Postgres
+  postgres:
+    environment:
+      POSTGRES_USER: shicks
+      POSTGRES_PASSWORD: dockerpass
+      POSTGRES_DB: smart-brain-docker
+      POSTGRES_HOST: postgres
+    build: ./postgres
+    ports: 
+    - '5433:5432'
