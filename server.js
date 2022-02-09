@@ -25,12 +25,15 @@ app.use(express.json()) // latest version of exressJS now comes with Body-Parser
 app.get("/", (req, res) => {
   res.send(db.users)
 })
-app.post("/signin", signin.handleSignin(db, bcrypt))
+app.post("/signin", signin.handleSigninAuthentication(db, bcrypt))
 app.post("/register", (req, res) => {
   register.handleRegister(req, res, db, bcrypt)
 })
 app.get("/profile/:id", (req, res) => {
   profile.handleProfileGet(req, res, db)
+})
+app.post("/profile/:id", (req, res) => {
+  profile.handleProfileUpdate(req, res, db)
 })
 app.put("/image", (req, res) => {
   image.handleImage(req, res, db)
