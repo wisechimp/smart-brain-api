@@ -24,7 +24,7 @@ services:
       POSTGRES_HOST: postgres
     build: ./postgres
     ports: 
-    - '5433:5432'
+    - '5432:5432'
 
     # Redis
   redis:

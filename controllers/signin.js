@@ -1,14 +1,4 @@
 const jwt = require("jsonwebtoken")
-const redis = require("redis")
-const { promisify } = require("util")
-
-const redisClient = redis.createClient(process.env.REDIS_URI)
-
-redisClient.on("error", () => {
-  console.log("Redis connect error: ", error)
-})
-
-const setAsync = promisify(redisClient.set).bind(redisClient)
 
 const checkUser = (db, bcrypt, req, res) => {
   const { email, password } = req.body
@@ -64,12 +54,7 @@ const handleSigninAuthentication = (db, bcrypt) => (req, res) => {
   return authorisation
     ? getAuthTokenId()
     : checkUser(db, bcrypt, req, res)
-        .then((data) => {
-          return data.id && data.email
-            ? createSession(data)
-            : Promise.reject(data)
-        })
-        .then((session) => res.json(session))
+        .then(data => res.json(data))
         .catch((err) => res.status(400).json(err))
 }
 
